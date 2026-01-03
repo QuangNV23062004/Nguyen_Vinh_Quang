@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { z, ZodError } from "zod";
 import Header from "./component/header";
@@ -8,6 +7,7 @@ import SwapButton from "./component/swap-button";
 import ToCurrency from "./component/to-currency";
 import ExchangeRateInfo from "./component/exchange-rate-info";
 import ConvertButton from "./component/convert-button";
+import { ExchangeRateService } from "./service/exchange-rate.service";
 
 const currencySchema = z.object({
   fromAmount: z
@@ -20,6 +20,7 @@ const currencySchema = z.object({
 });
 
 function App() {
+  const exchangeRateService = new ExchangeRateService();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fromAmount, setFromAmount] = useState<number>(0);
   const [toAmount, setToAmount] = useState<number>(0);
@@ -68,16 +69,15 @@ function App() {
       });
 
       setIsLoading(true);
-      const response = await axios.get(
-        `https://v6.exchangerate-api.com/v6/${
-          import.meta.env.VITE_EXCHANGE_RATE_API_KEY
-        }/pair/${fromCurrency}/${toCurrency}`
+      const responseData = await exchangeRateService.getExchangeRate(
+        fromCurrency,
+        toCurrency
       );
-      setExchangeRate(response.data.conversion_rate);
-      setLastUpdated(new Date(response.data.time_last_update_utc));
+      setExchangeRate(responseData?.conversion_rate);
+      setLastUpdated(new Date(responseData?.time_last_update_utc));
       setToAmount(
         fromAmount
-          ? parseFloat((fromAmount * response.data.conversion_rate).toFixed(2))
+          ? parseFloat((fromAmount * responseData?.conversion_rate).toFixed(2))
           : 0
       );
       setIsConverted(true);
@@ -88,11 +88,12 @@ function App() {
           .map((issue) => issue.message)
           .join(", ");
         toast.warning(errorMessage);
-      }
-
-      toast.error(
-        error instanceof Error ? error.message : "Failed to fetch exchange rate"
-      );
+      } else
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch exchange rate"
+        );
 
       return;
     } finally {

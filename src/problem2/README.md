@@ -1,38 +1,86 @@
-<aside>
-⏰ Duration: You should not spend more than **16 hours** on this problem.
-*Time estimation is for internship roles, if you are a software professional you should spend significantly less time.*
+My solution to the problem 2: <strong>Fancy form</strong>
 
-</aside>
+# Demo
 
-# Task
+<details open>
+<summary><strong>UI Overview</strong></summary>
+<br />
+<img src="demo/ui.png" alt="Overall UI" width="700" />
+</details>
 
-Create a currency swap form based on the template provided in the folder. A user would use this form to swap assets from one currency to another.
+<details>
+<summary><strong>Input Validation</strong></summary>
+<br />
+<img src="demo/input-validation.png" alt="Input validation errors" width="700" />
+</details>
 
-_You may use any third party plugin, library, and/or framework for this problem._
+<details>
+<summary><strong>Converting State</strong></summary>
+<br />
+<img src="demo/converting.png" alt="Converting state" width="700" />
+</details>
 
-1. You may add input validation/error messages to make the form interactive.
-2. Your submission will be rated on its usage intuitiveness and visual attractiveness.
-3. Show us your frontend development and design skills, feel free to totally disregard the provided files for this problem.
-4. You may use this [repo](https://github.com/Switcheo/token-icons/tree/main/tokens) for token images, e.g. [SVG image](https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/SWTH.svg).
-5. You may use this [URL](https://interview.switcheo.com/prices.json) for token price information and to compute exchange rates (not every token has a price, those that do not can be omitted).
+<details>
+<summary><strong>Happy Case</strong></summary>
+<br />
+<img src="demo/happy-case.png" alt="Happy case conversion" width="700" />
+</details>
 
-<aside>
-✨ Bonus: extra points if you use [Vite](https://vite.dev/) for this task!
+## Setup Guide
 
-</aside>
+### Prerequisites
 
-Please submit your solution using the files provided in the skeletal repo, including any additional files your solution may use.
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-<aside>
-💡 Hint: feel free to simulate or mock interactions with a backend service, e.g. implement a loading indicator with a timeout delay for the submit button is good enough.
+### Installation Steps
 
-</aside>
+1. **Clone the repository**
 
-Setup guide:
+   ```bash
+   git clone https://github.com/QuangNV23062004/Nguyen_Vinh_Quang.git
+   ```
 
-Clone the repository: git clone https://github.com/QuangNV23062004/Nguyen_Vinh_Quang.git
-Move into the problem 2: cd Nguyen_Vinh_Quang/src/problem2
-Install the dependency: npm install
-Get API key from: https://www.exchangerate-api.com/
-Set API key from exchange rate: VITE_EXCHANGE_RATE_API_KEY=your_key_here
-Run the project: npm run dev
+2. **Navigate to the project directory**
+
+   ```bash
+   cd Nguyen_Vinh_Quang/src/problem2
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+4. **Configure environment variables**
+
+   - Obtain an API key from [ExchangeRate-API](https://www.exchangerate-api.com/) (this is free)
+   - Create a `.env` file in the project root
+   - Add your API key:
+     ```
+     VITE_EXCHANGE_RATE_API_KEY=your_api_key_here
+     ```
+
+5. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   - Navigate to the URL displayed in the terminal (typically `http://localhost:5173`)
+
+### Additional Commands
+
+- **Build for production**: `npm run build`
+- **Preview production build**: `npm run preview`
+- **Run linter**: `npm run lint` (if configured)
+
+## Extra Notes:
+
+- Flags from currency are taken from external libraries, sometime they might not display correctly
+- I've choose to use an external service api key for exchange rate for newer exchange rate.
+- The selected external service also provide built-in exchange rate conversion when 2 currency are selected.
+- This project use react vite with typescript.
+- The app is setup is very minimal.

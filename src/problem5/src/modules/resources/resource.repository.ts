@@ -187,6 +187,7 @@ export class ResourceRepository implements IResourceRepository {
     return {
       data,
       total,
+      totalPages: Math.ceil(total / limit),
       page,
       limit,
       search,
@@ -194,6 +195,8 @@ export class ResourceRepository implements IResourceRepository {
       order,
       orderBy,
       includeDeleted,
+      hasNextPage: limit * page < total,
+      hasPreviousPage: page > 1,
     };
   }
 
